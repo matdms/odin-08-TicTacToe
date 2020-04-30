@@ -29,6 +29,7 @@ class Board
       return @plateau[8]
     end
   end
+
 end
 
 class Player
@@ -40,11 +41,12 @@ class Player
     @@nbr_players
   end
 
-  def initialize(name, symbol)
-    @name = name
-    @symbol = symbol
-    @score = 0
+  def initialize(symbol)
     @@nbr_players += 1
+    puts "Nom du Joueur #{@@nbr_players} ?"
+    @name = gets.chomp
+    @symbol = symbol
+    @score = 0    
   end
 
   def display()
@@ -59,17 +61,17 @@ end
 
 
 puts "Tic Tac Toe"
-
-puts "Nombre de joueurs: #{Player.nbr_players}"
-
-board = Board.new
-board.display
-
-joueur1 = Player.new("Alice", "X")
-joueur2 = Player.new("Tom", "O")
-# joueur1.display
-# joueur2.display
+puts " "
 # puts "Nombre de joueurs: #{Player.nbr_players}"
+
+# joueur1 = Player.new("Alice", "X")
+joueur1 = Player.new("X")
+joueur2 = Player.new("O")
+puts " "
+puts "#{Player.nbr_players} joueurs :"
+joueur1.display
+joueur2.display
+puts " "
 # joueur2.score_point
 # joueur2.score_point
 # joueur1.display
@@ -78,20 +80,22 @@ joueur2 = Player.new("Tom", "O")
 # puts joueur2.symbol
 # puts joueur2.score
 
+board = Board.new
+board.display
 
-board.update(0,"X")
+board.update(0,"O")
 board.display
 if board.check_win
   puts "#{board.check_win} wins"
 end
 
-board.update(4,"X")
+board.update(4,"O")
 board.display
 if board.check_win
   puts "#{board.check_win} wins"
 end
 
-board.update(8,"X")
+board.update(8,"O")
 board.display
 if board.check_win
   puts "#{board.check_win} wins"
