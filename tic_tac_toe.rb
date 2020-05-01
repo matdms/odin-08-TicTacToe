@@ -5,7 +5,9 @@ class Board
   end
 
   def update(pos, value)
-    @plateau[pos] = value
+    if (@plateau[pos] == "_" || @plateau[pos] == " ")
+      @plateau[pos] = value
+    end
   end
 
   def display()
@@ -66,7 +68,6 @@ class Player
     @choix = gets.chomp.to_i
     return @choix
   end
-
 end
 
 
@@ -99,6 +100,11 @@ while new_game == 1 do
     j=0
   
     while !board.check_win do
+      # c'est ici que l'on pourrait ajouter la condition qui refait jouer le meme joueur si il a fait un mouvement NOK
+      # genre en faisant :
+      # jeu = joueur[i].play  << ["choix", "symbol"]
+      # check_move(jeu)  << fonction qui teste les conditions pour valider le jeu, sinon retour à joueur[i].play
+      # board.update(jeu) << board doit prendre un Array en param
       board.update(joueurs[i].play-1, joueurs[i].symbol)
       board.display
       j = i
@@ -117,5 +123,3 @@ while new_game == 1 do
     new_game = 0
   end  
 end
-
-
