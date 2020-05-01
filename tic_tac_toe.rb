@@ -57,46 +57,65 @@ class Player
     @score += 1
   end
 
+  def play()
+    puts "Au tour de #{@name}"
+    puts "  1|2|3"
+    puts "  4|5|6"
+    puts "  7|8|9"
+    puts "Choix ?"
+    @choix = gets.chomp.to_i
+    return @choix
+  end
+
 end
 
 
 puts "Tic Tac Toe"
 puts " "
-# puts "Nombre de joueurs: #{Player.nbr_players}"
 
-# joueur1 = Player.new("Alice", "X")
-joueur1 = Player.new("X")
-joueur2 = Player.new("O")
-puts " "
-puts "#{Player.nbr_players} joueurs :"
-joueur1.display
-joueur2.display
-puts " "
-# joueur2.score_point
-# joueur2.score_point
-# joueur1.display
-# joueur2.display
-# puts joueur2.name
-# puts joueur2.symbol
-# puts joueur2.score
+joueurs = []
 
-board = Board.new
-board.display
+joueurs[0] = Player.new("X")
+joueurs[1] = Player.new("O")
 
-board.update(0,"O")
-board.display
-if board.check_win
-  puts "#{board.check_win} wins"
+new_game = 1
+
+while new_game == 1 do
+  puts " "
+  puts "Continuer ? (O/N)"
+  continuer = gets.chomp
+  
+  if (continuer != "n" && continuer != "N") then
+  
+    # puts "#{Player.nbr_players} joueurs :"
+    joueurs[0].display
+    joueurs[1].display
+    puts " "
+    
+    board = Board.new
+    board.display
+  
+    i=0
+    j=0
+  
+    while !board.check_win do
+      board.update(joueurs[i].play-1, joueurs[i].symbol)
+      board.display
+      j = i
+      i == 0 ? i = 1 : i = 0  
+    end
+  
+    if board.check_win
+      puts "#{joueurs[j].name} wins"
+      joueurs[j].score_point
+    end
+  
+  else 
+    puts "Partie terminée"
+    joueurs[0].display
+    joueurs[1].display
+    new_game = 0
+  end  
 end
 
-board.update(4,"O")
-board.display
-if board.check_win
-  puts "#{board.check_win} wins"
-end
 
-board.update(8,"O")
-board.display
-if board.check_win
-  puts "#{board.check_win} wins"
-end
